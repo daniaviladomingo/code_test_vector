@@ -3,8 +3,11 @@ package com.test.vectortest.di.application.module
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import com.test.data.network.INetworkDataSource
 import com.test.data.network.NetworkDataSourceImp
+import com.test.data.network.model.UserApi
 import com.test.data.network.retrofit.ApiService
 import com.test.data.network.retrofit.BASE_URL
+import com.test.domain.model.User
+import com.test.domain.model.mapper.Mapper
 import com.test.vectortest.di.application.Endpoint
 import dagger.Module
 import dagger.Provides
@@ -14,10 +17,9 @@ import javax.inject.Singleton
 
 @Module
 class NetworkDataSourceModule {
-
     @Provides
     @Singleton
-    fun provideNetworkDataSource(apiService: ApiService): INetworkDataSource = NetworkDataSourceImp(apiService)
+    fun provideNetworkDataSource(apiService: ApiService, networkMapper: Mapper<UserApi, User>): INetworkDataSource = NetworkDataSourceImp(apiService, networkMapper)
 
     @Provides
     @Singleton
