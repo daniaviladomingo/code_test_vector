@@ -10,5 +10,5 @@ import javax.inject.Singleton
 class UseCaseModule {
     @Provides
     @Singleton
-    fun provideGetUsersSingleUseCase(repository: IRepository) = GetUsersSingleUseCase(repository)
+    fun provideGetUsersSingleUseCase(repository: IRepository): GetUsersSingleUseCase = GetUsersSingleUseCase(repository)
 }

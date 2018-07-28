@@ -4,5 +4,5 @@ import com.test.domain.model.User
 import io.reactivex.Single
 
 interface INetworkDataSource {
-    fun getUsers(since: Int = 0): Single<List<User>>
+    fun getUsers(): Single<List<User>>
 }

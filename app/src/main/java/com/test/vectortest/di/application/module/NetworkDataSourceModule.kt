@@ -9,8 +9,13 @@ import com.test.data.network.retrofit.BASE_URL
 import com.test.domain.model.User
 import com.test.domain.model.mapper.Mapper
 import com.test.vectortest.di.application.Endpoint
+import com.test.vectortest.di.application.Password
+import com.test.vectortest.di.application.StringCredentials
+import com.test.vectortest.di.application.Username
 import dagger.Module
 import dagger.Provides
+import okhttp3.Credentials
+import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
@@ -23,9 +28,10 @@ class NetworkDataSourceModule {
 
     @Provides
     @Singleton
-    fun provideApiService(@Endpoint endPoint: String, gsonConverterFactory: GsonConverterFactory, rxJava2CallAdapterFactory: RxJava2CallAdapterFactory): ApiService =
+    fun provideApiService(@Endpoint endPoint: String, httpClient: OkHttpClient, gsonConverterFactory: GsonConverterFactory, rxJava2CallAdapterFactory: RxJava2CallAdapterFactory): ApiService =
             Retrofit.Builder()
                     .baseUrl(endPoint)
+                    .client(httpClient)
                     .addConverterFactory(gsonConverterFactory)
                     .addCallAdapterFactory(rxJava2CallAdapterFactory)
                     .build()
@@ -43,4 +49,29 @@ class NetworkDataSourceModule {
     @Singleton
     @Endpoint
     fun provideEndpoint(): String = BASE_URL
+
+    @Provides
+    @Singleton
+    fun provideHttpClient(@StringCredentials credentials: String): OkHttpClient = OkHttpClient().newBuilder().addInterceptor { chain ->
+        chain.run {
+            request()
+            val builder = request().newBuilder().header("Authorization", credentials)
+            proceed(builder.build())
+        }
+    }.build()
+
+    @Provides
+    @Singleton
+    @StringCredentials
+    fun provideCredentials(@Username username: String, @Password password: String): String = Credentials.basic(username, password)
+
+    @Provides
+    @Singleton
+    @Username
+    fun provideUserName(): String = "xxx@gmail.com"
+
+    @Provides
+    @Singleton
+    @Password
+    fun providePassword(): String = "xxx"
 }
