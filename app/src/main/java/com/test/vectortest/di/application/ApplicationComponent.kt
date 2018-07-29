@@ -1,6 +1,7 @@
 package com.test.vectortest.di.application
 
 import android.content.Context
+import com.test.data.database.IDataBaseSource
 import com.test.data.network.INetworkDataSource
 import com.test.data.network.model.UserApi
 import com.test.domain.interactors.GetUsersSingleUseCase
@@ -16,6 +17,7 @@ import javax.inject.Singleton
 @Singleton
 @Component(modules = [
     ApplicationModule::class,
+    DataBaseSourceModule::class,
     DataSourceModule::class,
     MapperModule::class,
     NetworkDataSourceModule::class,
@@ -25,6 +27,8 @@ import javax.inject.Singleton
 interface ApplicationComponent {
 
     fun provideContext(): Context
+
+    fun provideDataBaseSourece(): IDataBaseSource
 
     fun provideDataSource(): IRepository
 
