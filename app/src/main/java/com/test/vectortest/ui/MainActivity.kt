@@ -9,7 +9,6 @@ import com.test.vectortest.base.BaseActivity
 import com.test.vectortest.base.ScopePresenter
 import com.test.vectortest.di.activity.ActivityComponent
 import com.test.vectortest.ui.adapter.UserAdapter
-import com.test.vectortest.utils.log
 import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
 
@@ -18,7 +17,8 @@ class MainActivity : BaseActivity(), MainContract.IView {
     @Inject
     lateinit var presenter: MainContract.IPresenter
 
-    private val adapter = UserAdapter()
+    private val userList = mutableListOf<User>()
+    private val adapter = UserAdapter(userList)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,8 +38,9 @@ class MainActivity : BaseActivity(), MainContract.IView {
     }
 
     override fun showUsers(users: List<User>) {
+        userList.addAll(users)
         runOnUiThread {
-            adapter.submitList(users)
+            adapter.notifyDataSetChanged()
         }
     }
 
@@ -49,10 +50,7 @@ class MainActivity : BaseActivity(), MainContract.IView {
                 override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
                     super.onScrolled(recyclerView, dx, dy)
                     (layoutManager as LinearLayoutManager).run {
-                        "itemCount: $itemCount".log()
-                        "childCount: $childCount".log()
-                        "findLastVisibleItemPosition: ${findLastVisibleItemPosition()}".log()
-                        presenter.listScrolled(childCount, findLastVisibleItemPosition(), itemCount)
+                        presenter.listScrolled(childCount, findFirstVisibleItemPosition(), itemCount)
                     }
                 }
             })

@@ -8,8 +8,13 @@ class MainPresenter(private val getUsersSingleUseCase: GetUsersSingleUseCase,
                     private val scheduleProvider: IScheduleProvider,
                     view: MainContract.IView) : BasePresenter<MainContract.IView>(view), MainContract.IPresenter {
 
+    private var isRequestInProgress = false
+    var since = 0
+
     override fun listScrolled(visibleItemCount: Int, lastVisibleItemPosition: Int, totalItemCount: Int) {
-        if (visibleItemCount + lastVisibleItemPosition + 5 >= totalItemCount) {
+        if (visibleItemCount + lastVisibleItemPosition >= totalItemCount) {
+            if (isRequestInProgress) return
+            isRequestInProgress = true
             loadMoreUser()
         }
     }
@@ -19,11 +24,15 @@ class MainPresenter(private val getUsersSingleUseCase: GetUsersSingleUseCase,
     }
 
     private fun loadMoreUser() {
-        addDisposable(getUsersSingleUseCase.execute()
+        addDisposable(getUsersSingleUseCase.execute(since)
                 .observeOn(scheduleProvider.io())
                 .subscribeOn(scheduleProvider.ui())
-                .subscribe { users ->
+                .subscribe({ users ->
+                    isRequestInProgress = false
+                    since = users.last().id
                     view.showUsers(users)
+                }) {
+                    isRequestInProgress = false
                 })
     }
 }

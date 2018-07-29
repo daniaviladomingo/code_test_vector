@@ -6,5 +6,5 @@ import com.test.domain.repository.IRepository
 import io.reactivex.Single
 
 class RepositoryImp(private val networkDataSource: INetworkDataSource) : IRepository {
-    override fun getUsers(): Single<List<User>> = networkDataSource.getUsers()
+    override fun getUsers(since: Int): Single<List<User>> = networkDataSource.getUsers(since)
 }

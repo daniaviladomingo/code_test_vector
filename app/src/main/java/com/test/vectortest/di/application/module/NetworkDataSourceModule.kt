@@ -68,10 +68,10 @@ class NetworkDataSourceModule {
     @Provides
     @Singleton
     @Username
-    fun provideUserName(): String = "xxx@gmail.com"
+    fun provideUserName(): String = ""
 
     @Provides
     @Singleton
     @Password
-    fun providePassword(): String = "xxx"
+    fun providePassword(): String = ""
 }
