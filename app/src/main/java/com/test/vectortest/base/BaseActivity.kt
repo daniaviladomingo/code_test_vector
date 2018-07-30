@@ -26,7 +26,7 @@ abstract class BaseActivity : DaggerActivity(), BaseView {
 
     override fun onStart() {
         super.onStart()
-        getScopePresenter().init()
+        //getScopePresenter().init()
     }
 
     override fun onStop() {
