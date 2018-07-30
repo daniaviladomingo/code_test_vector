@@ -5,4 +5,5 @@ import io.reactivex.Single
 
 interface IRepository {
     fun getUsers(since: Int): Single<List<User>>
+    fun getCachedUsersUntil(idUser: Int): Single<List<User>>
 }

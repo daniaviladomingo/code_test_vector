@@ -7,6 +7,6 @@ import com.test.data.database.model.UserDb.Companion.TABLE_NAME
 
 @Dao
 abstract class UserDao: BaseDao<UserDb> {
-    @Query("SELECT * FROM $TABLE_NAME WHERE id < :userId")
+    @Query("SELECT * FROM $TABLE_NAME WHERE id <= :userId")
     abstract fun getUsersUntil(userId: Int): List<UserDb>
 }

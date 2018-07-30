@@ -4,6 +4,7 @@ import android.content.Context
 import com.test.data.database.IDataBaseSource
 import com.test.data.network.INetworkDataSource
 import com.test.data.network.model.UserApi
+import com.test.domain.interactors.GetCachedUserSingleUserCase
 import com.test.domain.interactors.GetUsersSingleUseCase
 import com.test.domain.model.User
 import com.test.domain.model.mapper.Mapper
@@ -39,6 +40,8 @@ interface ApplicationComponent {
     fun provideSchedule(): IScheduleProvider
 
     fun provideGetUsersSingleUseCase(): GetUsersSingleUseCase
+
+    fun provideGetUserCachedSingleUseCase(): GetCachedUserSingleUserCase
 
     companion object {
         fun init(appApplication: AppApplication): ApplicationComponent = DaggerApplicationComponent.builder()

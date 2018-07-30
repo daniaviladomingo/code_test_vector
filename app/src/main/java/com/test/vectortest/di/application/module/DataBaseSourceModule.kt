@@ -28,6 +28,6 @@ class DataBaseSourceModule {
 
     @Provides
     @Singleton
-    @Password
+    @DataBaseName
     fun provideDataBaseName(): String = DATABASE_NAME
 }

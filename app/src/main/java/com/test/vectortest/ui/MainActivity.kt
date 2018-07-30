@@ -27,6 +27,13 @@ class MainActivity : BaseActivity(), MainContract.IView {
         user_list.adapter = adapter
 
         setupScrollListener()
+
+        restore(savedInstanceState)
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putInt(LAST_USER_ID_LOADED, userList.last().id)
     }
 
     override fun getScopePresenter(): ScopePresenter = presenter
@@ -44,6 +51,12 @@ class MainActivity : BaseActivity(), MainContract.IView {
         }
     }
 
+    private fun restore(savedInstanceState: Bundle?) {
+        savedInstanceState?.run {
+            presenter.loadUsersFromCache(getInt(LAST_USER_ID_LOADED))
+        } ?: presenter.initializeList()
+    }
+
     private fun setupScrollListener() {
         user_list.run {
             addOnScrollListener(object : RecyclerView.OnScrollListener() {
@@ -55,5 +68,9 @@ class MainActivity : BaseActivity(), MainContract.IView {
                 }
             })
         }
+    }
+
+    companion object {
+        private const val LAST_USER_ID_LOADED: String = "last_user_id_loaded"
     }
 }

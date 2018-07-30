@@ -11,5 +11,7 @@ interface MainContract {
 
     interface IPresenter : ScopePresenter {
         fun listScrolled(visibleItemCount: Int, lastVisibleItemPosition: Int, totalItemCount: Int)
+        fun initializeList()
+        fun loadUsersFromCache(idUser: Int)
     }
 }
