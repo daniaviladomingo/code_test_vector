@@ -6,11 +6,13 @@ import com.test.vectortest.base.ScopePresenter
 
 interface MainContract {
     interface IView : BaseView {
-        fun showUsers(users: List<User>, scrollToItem: Int = -1)
+        fun addUsers(users: List<User>)
+        fun scrollListToItem(scrollToItem: Int)
     }
 
     interface IPresenter : ScopePresenter {
-        fun init(lastIdUserLoaded: Int, positionFirstUserVisible: Int)
+        fun init()
+        fun restore(lastIdUserLoaded: Int, lastVisibleItemPosition: Int)
         fun listScrolled(visibleItemCount: Int, lastVisibleItemPosition: Int, totalItemCount: Int)
     }
 }

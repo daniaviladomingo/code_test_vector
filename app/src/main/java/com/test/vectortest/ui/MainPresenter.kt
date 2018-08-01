@@ -13,12 +13,12 @@ class MainPresenter(private val getUsersSingleUseCase: GetUsersSingleUseCase,
     private var isRequestInProgress = false
     private var since = 0
 
-    override fun init(lastIdUserLoaded: Int, positionFirstUserVisible: Int) {
-        if (lastIdUserLoaded == 0) {
-            loadMoreUser()
-        } else {
-            loadUsersFromCache(lastIdUserLoaded, positionFirstUserVisible)
-        }
+    override fun init() {
+        loadMoreUser()
+    }
+
+    override fun restore(lastIdUserLoaded: Int, lastVisibleItemPosition: Int) {
+        loadUsersFromCache(lastIdUserLoaded, lastVisibleItemPosition)
     }
 
     override fun listScrolled(visibleItemCount: Int, lastVisibleItemPosition: Int, totalItemCount: Int) {
@@ -29,12 +29,13 @@ class MainPresenter(private val getUsersSingleUseCase: GetUsersSingleUseCase,
         }
     }
 
-    private fun loadUsersFromCache(lastIdUser: Int, positionFirstUserVisible: Int) {
-        addDisposable(getCachedUserSingleUserCase.execute(lastIdUser).observeOn(scheduleProvider.io())
+    private fun loadUsersFromCache(lastIdUserLoaded: Int, lastVisibleItemPosition: Int) {
+        addDisposable(getCachedUserSingleUserCase.execute(lastIdUserLoaded).observeOn(scheduleProvider.io())
                 .subscribeOn(scheduleProvider.ui())
                 .subscribe({ users ->
                     since = users.last().id
-                    view.showUsers(users, positionFirstUserVisible)
+                    view.addUsers(users)
+                    view.scrollListToItem(lastVisibleItemPosition)
                 }) {})
     }
 
@@ -45,7 +46,7 @@ class MainPresenter(private val getUsersSingleUseCase: GetUsersSingleUseCase,
                 .subscribe({ users ->
                     isRequestInProgress = false
                     since = users.last().id
-                    view.showUsers(users)
+                    view.addUsers(users)
                 }) {
                     isRequestInProgress = false
                 })

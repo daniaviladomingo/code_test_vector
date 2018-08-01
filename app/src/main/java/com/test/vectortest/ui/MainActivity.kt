@@ -28,15 +28,16 @@ class MainActivity : BaseActivity(), MainContract.IView {
 
         setupScrollListener()
 
-        presenter.init(savedInstanceState?.getInt(LAST_USER_ID_LOADED)
-                ?: 0, savedInstanceState?.getInt(FIRST_USER_VISIBLE) ?: 0)
+        savedInstanceState?.run {
+            presenter.restore(getInt(LAST_USER_ID_LOADED), getInt(LAST_USER_VISIBLE))
+        } ?: presenter.init()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         if (userList.isNotEmpty()) {
             outState.putInt(LAST_USER_ID_LOADED, userList.last().id)
-            outState.putInt(FIRST_USER_VISIBLE, (user_list.layoutManager as LinearLayoutManager).findLastVisibleItemPosition())
+            outState.putInt(LAST_USER_VISIBLE, (user_list.layoutManager as LinearLayoutManager).findLastVisibleItemPosition())
         }
     }
 
@@ -48,11 +49,16 @@ class MainActivity : BaseActivity(), MainContract.IView {
         activityComponent.inject(this)
     }
 
-    override fun showUsers(users: List<User>, scrollToItem: Int) {
+    override fun addUsers(users: List<User>) {
         userList.addAll(users)
         runOnUiThread {
             adapter.notifyDataSetChanged()
-            if (scrollToItem >= 0) user_list.scrollToPosition(scrollToItem)
+        }
+    }
+
+    override fun scrollListToItem(scrollToItem: Int) {
+        runOnUiThread {
+            user_list.scrollToPosition(scrollToItem)
         }
     }
 
@@ -71,6 +77,6 @@ class MainActivity : BaseActivity(), MainContract.IView {
 
     companion object {
         private const val LAST_USER_ID_LOADED: String = "last_user_id_loaded"
-        private const val FIRST_USER_VISIBLE: String = "first_user_visible"
+        private const val LAST_USER_VISIBLE: String = "first_user_visible"
     }
 }
