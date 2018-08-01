@@ -1,6 +1,6 @@
 package com.test.vectortest.base.progress
 
-interface IShowProgress {
+interface IProgressView {
     fun showProgress(message: String)
     fun dismissProgress()
 }

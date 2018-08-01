@@ -2,7 +2,7 @@ package com.test.vectortest.base.progress
 
 import android.app.ProgressDialog
 
-class ShowProgressImp(private var progressDialog: ProgressDialog): IShowProgress {
+class ProgressViewImp(private var progressDialog: ProgressDialog): IProgressView {
 
     override fun showProgress(message: String) {
         progressDialog.run {

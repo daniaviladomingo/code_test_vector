@@ -11,6 +11,7 @@ import com.test.data.database.model.UserDb
 import com.test.domain.model.User
 import com.test.domain.model.mapper.Mapper
 import com.test.vectortest.di.application.DataBaseName
+import com.test.vectortest.di.application.ForApplication
 import com.test.vectortest.di.application.Password
 import dagger.Module
 import dagger.Provides
@@ -24,7 +25,7 @@ class DataBaseSourceModule {
 
     @Provides
     @Singleton
-    fun provideRoomDataBase(context: Context, @DataBaseName dataBaseName: String): RoomDatabase = Room.databaseBuilder(context, AppDatabase::class.java, dataBaseName).allowMainThreadQueries().build()
+    fun provideRoomDataBase(@ForApplication context: Context, @DataBaseName dataBaseName: String): RoomDatabase = Room.databaseBuilder(context, AppDatabase::class.java, dataBaseName).allowMainThreadQueries().build()
 
     @Provides
     @Singleton

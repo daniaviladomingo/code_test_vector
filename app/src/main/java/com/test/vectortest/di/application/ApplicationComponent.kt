@@ -27,6 +27,7 @@ import javax.inject.Singleton
 
 interface ApplicationComponent {
 
+    @ForApplication
     fun provideContext(): Context
 
     fun provideDataBaseSourece(): IDataBaseSource

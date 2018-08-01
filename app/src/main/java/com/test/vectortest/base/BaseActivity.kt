@@ -2,12 +2,14 @@ package com.test.vectortest.base
 
 import android.os.Bundle
 import android.support.v7.widget.Toolbar
-import com.test.vectortest.base.progress.IShowProgress
+import com.test.vectortest.base.progress.IProgressView
 import com.test.vectortest.di.activity.DaggerActivity
+import javax.inject.Inject
 
 abstract class BaseActivity : DaggerActivity(), BaseView {
 
-    lateinit var showProgress: IShowProgress
+    @Inject
+    lateinit var progress: IProgressView
     var toolbar: Toolbar? =  null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,11 +26,6 @@ abstract class BaseActivity : DaggerActivity(), BaseView {
 
     private fun initializeToolbar() {}
 
-    override fun onStart() {
-        super.onStart()
-        //getScopePresenter().init()
-    }
-
     override fun onStop() {
         getScopePresenter().onStop()
         super.onStop()
@@ -39,10 +36,10 @@ abstract class BaseActivity : DaggerActivity(), BaseView {
     abstract fun getLayoutId(): Int
 
     override fun showProgress(message: String) {
-        showProgress.showProgress(message)
+        progress.showProgress(message)
     }
 
     override fun dismissProgress() {
-        showProgress.dismissProgress()
+        progress.dismissProgress()
     }
 }

@@ -40,14 +40,17 @@ class MainPresenter(private val getUsersSingleUseCase: GetUsersSingleUseCase,
     }
 
     private fun loadMoreUser() {
+        view.showProgress("Loading...")
         addDisposable(getUsersSingleUseCase.execute(since)
                 .observeOn(scheduleProvider.io())
                 .subscribeOn(scheduleProvider.ui())
                 .subscribe({ users ->
+                    view.dismissProgress()
                     isRequestInProgress = false
                     since = users.last().id
                     view.addUsers(users)
                 }) {
+                    view.dismissProgress()
                     isRequestInProgress = false
                 })
     }

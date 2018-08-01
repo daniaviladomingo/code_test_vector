@@ -2,6 +2,7 @@ package com.test.vectortest.di.application.module
 
 import android.app.Application
 import android.content.Context
+import com.test.vectortest.di.application.ForApplication
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -11,7 +12,8 @@ class ApplicationModule(private val application: Application) {
 
     @Provides
     @Singleton
+    @ForApplication
     internal fun provideContext(): Context {
-        return this.application
+        return application
     }
 }
