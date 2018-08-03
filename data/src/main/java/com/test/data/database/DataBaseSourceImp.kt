@@ -11,7 +11,5 @@ class DataBaseSourceImp(private val appDatabase: AppDatabase, private val mapper
         users.forEach { appDatabase.userDao().create(mapper.inverseMap(it)) }
     }
 
-    override fun getUnitl(userId: Int): Single<List<User>> = Single.create {
-        it.onSuccess(mapper.map(appDatabase.userDao().getUsersUntil(userId)))
-    }
+    override fun getUnitl(userId: Int): Single<List<User>> = appDatabase.userDao().getUsersUntil(userId).map { mapper.map(it) }
 }

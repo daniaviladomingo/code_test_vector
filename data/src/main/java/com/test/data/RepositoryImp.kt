@@ -9,14 +9,7 @@ import io.reactivex.Single
 class RepositoryImp(private val dataBaseSource: IDataBaseSource,
                     private val networkDataSource: INetworkDataSource) : IRepository {
 
-    override fun getUsers(since: Int): Single<List<User>> = Single.create {
-        networkDataSource.getUsers(since).subscribe({ users ->
-            dataBaseSource.save(users)
-            it.onSuccess(users)
-        }) { throwable ->
-            it.onError(throwable)
-        }
-    }
+    override fun getUsers(since: Int): Single<List<User>> = networkDataSource.getUsers(since).doAfterSuccess { dataBaseSource.save(it) }
 
     override fun getCachedUsersUntil(idUser: Int): Single<List<User>> = dataBaseSource.getUnitl(idUser)
 }

@@ -1,15 +1,30 @@
 package com.test.vectortest.ui
 
+import android.arch.persistence.room.Room
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
+import com.test.data.RepositoryImp
+import com.test.data.database.DataBaseSourceImp
+import com.test.data.database.definition.AppDatabase
+import com.test.data.database.model.mapper.DataBaseMapper
+import com.test.data.network.NetworkDataSourceImp
+import com.test.data.network.model.mapper.NetworkMapper
+import com.test.data.network.retrofit.ApiService
 import com.test.domain.model.User
 import com.test.vectortest.R
 import com.test.vectortest.base.BaseActivity
 import com.test.vectortest.base.ScopePresenter
 import com.test.vectortest.di.activity.ActivityComponent
 import com.test.vectortest.ui.adapter.UserAdapter
+import com.test.vectortest.utils.log
+import com.test.vectortest.utils.schedulers.ScheduleProviderImp
 import kotlinx.android.synthetic.main.activity_main.*
+import okhttp3.Credentials
+import okhttp3.OkHttpClient
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Inject
 
 class MainActivity : BaseActivity(), MainContract.IView {
@@ -24,6 +39,30 @@ class MainActivity : BaseActivity(), MainContract.IView {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+//        RepositoryImp( DataBaseSourceImp(Room.databaseBuilder(this, AppDatabase::class.java, "foriro").allowMainThreadQueries().build() as AppDatabase, DataBaseMapper()),
+//
+//        NetworkDataSourceImp(Retrofit.Builder()
+//                .baseUrl("https://api.github.com/")
+//                .client(OkHttpClient().newBuilder().addInterceptor { chain ->
+//                    chain.run {
+//                        request()
+//                        val builder = request().newBuilder().header("Authorization", Credentials.basic("daniaviladomingo@gmail.com", "ana1636ana"))
+//                        proceed(builder.build())
+//                    }
+//                }.build())
+//                .addConverterFactory(GsonConverterFactory.create())
+//                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+//                .build()
+//                .create(ApiService::class.java), NetworkMapper())
+//        )
+//
+//
+//                .getUsers(0)
+//                .subscribeOn(ScheduleProviderImp().io())
+//                .subscribe { it ->
+//                    it.size.log()
+//                }
+//
         user_list.adapter = adapter
 
         setupScrollListener()
