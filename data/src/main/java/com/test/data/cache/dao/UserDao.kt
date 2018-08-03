@@ -8,6 +8,6 @@ import io.reactivex.Single
 
 @Dao
 abstract class UserDao: BaseDao<UserDb> {
-    @Query("SELECT * FROM $TABLE_NAME WHERE id <= :userId")
-    abstract fun getUsersUntil(userId: Int): Single<List<UserDb>>
+    @Query("SELECT * FROM $TABLE_NAME WHERE id <= :idUser")
+    abstract fun getUsersUntil(idUser: Int): Single<List<UserDb>>
 }

@@ -5,5 +5,5 @@ import io.reactivex.Single
 
 interface ICacheDataSource {
     fun save(users: List<User>)
-    fun getUnitl(userId: Int): Single<List<User>>
+    fun getUntil(idUser: Int): Single<List<User>>
 }

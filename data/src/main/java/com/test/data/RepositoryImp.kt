@@ -11,5 +11,5 @@ class RepositoryImp(private val cacheDataSource: ICacheDataSource,
 
     override fun getUsers(since: Int): Single<List<User>> = networkDataSource.getUsers(since).doAfterSuccess { cacheDataSource.save(it) }
 
-    override fun getCachedUsersUntil(idUser: Int): Single<List<User>> = cacheDataSource.getUnitl(idUser)
+    override fun getCachedUsersUntil(idUser: Int): Single<List<User>> = cacheDataSource.getUntil(idUser)
 }

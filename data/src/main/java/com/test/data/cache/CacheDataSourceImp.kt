@@ -11,5 +11,5 @@ class CacheDataSourceImp(private val appDatabase: AppDatabase, private val mappe
         users.forEach { appDatabase.userDao().create(mapper.inverseMap(it)) }
     }
 
-    override fun getUnitl(userId: Int): Single<List<User>> = appDatabase.userDao().getUsersUntil(userId).map { mapper.map(it) }
+    override fun getUntil(idUser: Int): Single<List<User>> = appDatabase.userDao().getUsersUntil(idUser).map { mapper.map(it) }
 }
