@@ -30,8 +30,9 @@ class MainPresenter(private val getUsersSingleUseCase: GetUsersSingleUseCase,
     }
 
     private fun loadUsersFromCache(lastIdUserLoaded: Int, lastVisibleItemPosition: Int) {
-        addDisposable(getCachedUserSingleUserCase.execute(lastIdUserLoaded).observeOn(scheduleProvider.io())
-                .subscribeOn(scheduleProvider.ui())
+        addDisposable(getCachedUserSingleUserCase.execute(lastIdUserLoaded)
+                .observeOn(scheduleProvider.ui())
+                .subscribeOn(scheduleProvider.io())
                 .subscribe({ users ->
                     since = users.last().id
                     view.addUsers(users)
@@ -42,8 +43,8 @@ class MainPresenter(private val getUsersSingleUseCase: GetUsersSingleUseCase,
     private fun loadMoreUser() {
         view.showProgressLoading()
         addDisposable(getUsersSingleUseCase.execute(since)
-                .observeOn(scheduleProvider.io())
-                .subscribeOn(scheduleProvider.ui())
+                .observeOn(scheduleProvider.ui())
+                .subscribeOn(scheduleProvider.io())
                 .subscribe({ users ->
                     view.dismissProgress()
                     isRequestInProgress = false
