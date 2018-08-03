@@ -62,6 +62,10 @@ class MainActivity : BaseActivity(), MainContract.IView {
         }
     }
 
+    override fun showProgressLoading() {
+        showProgress(getString(R.string.loading_message))
+    }
+
     private fun setupScrollListener() {
         user_list.run {
             addOnScrollListener(object : RecyclerView.OnScrollListener() {
