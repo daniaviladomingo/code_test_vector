@@ -1,10 +1,10 @@
-package com.test.data.database.model
+package com.test.data.cache.model
 
 import android.arch.persistence.room.ColumnInfo
 import android.arch.persistence.room.Entity
 import android.arch.persistence.room.Index
 import android.arch.persistence.room.PrimaryKey
-import com.test.data.database.model.UserDb.Companion.TABLE_NAME
+import com.test.data.cache.model.UserDb.Companion.TABLE_NAME
 
 @Entity(tableName = TABLE_NAME,
         indices = [(Index("id"))])

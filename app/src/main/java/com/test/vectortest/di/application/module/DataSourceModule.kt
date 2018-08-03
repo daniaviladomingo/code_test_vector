@@ -1,8 +1,7 @@
 package com.test.vectortest.di.application.module
 
 import com.test.data.RepositoryImp
-import com.test.data.database.DataBaseSourceImp
-import com.test.data.database.IDataBaseSource
+import com.test.data.cache.ICacheDataSource
 import com.test.data.network.INetworkDataSource
 import com.test.domain.repository.IRepository
 import dagger.Module
@@ -13,5 +12,5 @@ import javax.inject.Singleton
 class DataSourceModule {
     @Provides
     @Singleton
-    fun provideRepository(dataBaseSource: IDataBaseSource, networkDataSource: INetworkDataSource): IRepository = RepositoryImp(dataBaseSource, networkDataSource)
+    fun provideRepository(cacheDataSource: ICacheDataSource, networkDataSource: INetworkDataSource): IRepository = RepositoryImp(cacheDataSource, networkDataSource)
 }

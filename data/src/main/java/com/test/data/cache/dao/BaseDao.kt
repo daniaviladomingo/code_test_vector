@@ -1,4 +1,4 @@
-package com.test.data.database.dao
+package com.test.data.cache.dao
 
 import android.arch.persistence.room.Delete
 import android.arch.persistence.room.Insert

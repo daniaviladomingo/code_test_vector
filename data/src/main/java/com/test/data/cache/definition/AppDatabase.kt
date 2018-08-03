@@ -1,10 +1,10 @@
-package com.test.data.database.definition
+package com.test.data.cache.definition
 
 import android.arch.persistence.room.Database
 import android.arch.persistence.room.RoomDatabase
-import com.test.data.database.dao.UserDao
-import com.test.data.database.definition.AppDatabase.Companion.DATABASE_VERSION
-import com.test.data.database.model.UserDb
+import com.test.data.cache.dao.UserDao
+import com.test.data.cache.definition.AppDatabase.Companion.DATABASE_VERSION
+import com.test.data.cache.model.UserDb
 
 @Database(
         entities = [UserDb::class],

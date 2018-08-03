@@ -1,9 +1,9 @@
-package com.test.data.database.dao
+package com.test.data.cache.dao
 
 import android.arch.persistence.room.Dao
 import android.arch.persistence.room.Query
-import com.test.data.database.model.UserDb
-import com.test.data.database.model.UserDb.Companion.TABLE_NAME
+import com.test.data.cache.model.UserDb
+import com.test.data.cache.model.UserDb.Companion.TABLE_NAME
 import io.reactivex.Single
 
 @Dao

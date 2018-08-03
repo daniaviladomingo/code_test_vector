@@ -1,6 +1,6 @@
-package com.test.data.database.model.mapper
+package com.test.data.cache.model.mapper
 
-import com.test.data.database.model.UserDb
+import com.test.data.cache.model.UserDb
 import com.test.domain.model.User
 import com.test.domain.model.mapper.Mapper
 
