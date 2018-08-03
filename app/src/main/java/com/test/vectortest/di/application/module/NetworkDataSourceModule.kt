@@ -18,6 +18,7 @@ import okhttp3.Credentials
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
 @Module
@@ -52,13 +53,17 @@ class NetworkDataSourceModule {
 
     @Provides
     @Singleton
-    fun provideHttpClient(@StringCredentials credentials: String): OkHttpClient = OkHttpClient().newBuilder().addInterceptor { chain ->
-        chain.run {
-            request()
-            val builder = request().newBuilder().header("Authorization", credentials)
-            proceed(builder.build())
-        }
-    }.build()
+    fun provideHttpClient(@StringCredentials credentials: String): OkHttpClient = OkHttpClient()
+            .newBuilder()
+            .connectTimeout(10, TimeUnit.SECONDS)
+            .readTimeout(10, TimeUnit.SECONDS)
+            .addInterceptor { chain ->
+                chain.run {
+                    request()
+                    val builder = request().newBuilder().header("Authorization", credentials)
+                    proceed(builder.build())
+                }
+            }.build()
 
     @Provides
     @Singleton
