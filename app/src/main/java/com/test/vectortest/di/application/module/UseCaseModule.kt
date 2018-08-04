@@ -13,9 +13,9 @@ import javax.inject.Singleton
 class UseCaseModule {
     @Provides
     @Singleton
-    fun provideGetUsersSingleUseCase(repository: IRepository): SingleUseCaseWithParameter<Int, List<User>> = GetUsersSingleUseCase(repository)
+    fun provideGetUsersSingleUseCase(repository: IRepository): GetUsersSingleUseCase = GetUsersSingleUseCase(repository)
 
     @Provides
     @Singleton
-    fun provideGetCachedUsersSingleUseCase(repository: IRepository): SingleUseCaseWithParameter<Int, List<User>> = GetCachedUserSingleUserCase(repository)
+    fun provideGetCachedUsersSingleUseCase(repository: IRepository): GetCachedUserSingleUserCase = GetCachedUserSingleUserCase(repository)
 }
