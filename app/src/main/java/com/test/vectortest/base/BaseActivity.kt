@@ -10,28 +10,21 @@ abstract class BaseActivity : DaggerActivity(), BaseView {
 
     @Inject
     lateinit var progress: IProgressView
-    var toolbar: Toolbar? =  null
+    var toolbar: Toolbar? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        getLayoutId().run {
-            if (this != 0) {
-                setContentView(this)
-            }
+        if (getLayoutId() == 0) {
+            throw RuntimeException("Invalid Layout ID")
         }
+
+        setContentView(getLayoutId())
 
         initializeToolbar()
     }
 
     private fun initializeToolbar() {}
-
-    override fun onStop() {
-        getScopePresenter().onStop()
-        super.onStop()
-    }
-
-    abstract fun getScopePresenter(): ScopePresenter
 
     abstract fun getLayoutId(): Int
 

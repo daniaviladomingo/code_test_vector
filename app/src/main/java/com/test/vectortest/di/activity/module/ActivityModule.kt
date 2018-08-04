@@ -7,8 +7,6 @@ import com.test.vectortest.ui.MainActivity
 import com.test.vectortest.di.activity.DaggerActivity
 import com.test.vectortest.di.activity.ActivityScope
 import com.test.vectortest.di.activity.ForActivity
-import com.test.vectortest.ui.MainContract
-import com.test.vectortest.ui.MainPresenter
 import com.test.vectortest.utils.schedulers.IScheduleProvider
 import dagger.Module
 import dagger.Provides
