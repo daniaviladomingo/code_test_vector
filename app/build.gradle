@@ -19,6 +19,11 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
@@ -63,7 +68,6 @@ dependencies {
 
     // CircleImageView
     implementation 'de.hdodenhof:circleimageview:2.2.0'
-
 
     // ViewModel and LiveData
     implementation "android.arch.lifecycle:extensions:1.1.1"
