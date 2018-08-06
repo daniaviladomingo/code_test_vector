@@ -7,6 +7,7 @@ import com.test.domain.model.User
 import com.test.vectortest.base.BaseViewModel
 import com.test.vectortest.ui.data.Resource
 import com.test.vectortest.ui.data.ResourceState
+import com.test.vectortest.utils.log
 import com.test.vectortest.utils.schedulers.IScheduleProvider
 
 class MainViewModel(private val getUsersSingleUseCase: GetUsersSingleUseCase,
@@ -36,33 +37,40 @@ class MainViewModel(private val getUsersSingleUseCase: GetUsersSingleUseCase,
     }
 
     private fun loadMoreUser() {
-        usersLiveData.postValue(Resource(ResourceState.LOADING, null, null))
+        "Load more since: $since".log("ccc")
+        usersLiveData.value = Resource(ResourceState.LOADING, null, null)
         addDisposable(getUsersSingleUseCase.execute(since)
-                .observeOn(scheduleProvider.io())
-                .subscribeOn(scheduleProvider.ui())
+                .observeOn(scheduleProvider.ui())
+                .subscribeOn(scheduleProvider.io())
                 .subscribe({ users ->
                     isRequestInProgress = false
                     since = users.last().id
                     if (users.isNotEmpty()) {
-                        usersLiveData.postValue(Resource(ResourceState.SUCCESS, users, null))
+                        var ids = ""
+                        users.forEach { ids += "${it.id}," }
+                        "Users: $ids".log("ccc")
+                        usersLiveData.value = Resource(ResourceState.SUCCESS, users, null)
                     } else {
-                        usersLiveData.postValue(Resource(ResourceState.EMPTY, null, null))
+                        usersLiveData.value = Resource(ResourceState.EMPTY, null, null)
                     }
                 }) {
                     isRequestInProgress = false
-                    usersLiveData.postValue(Resource(ResourceState.ERROR, null, it.message))
+                    usersLiveData.value = Resource(ResourceState.ERROR, null, it.message)
                 })
     }
 
     private fun loadUsersFromCache(lastIdUserLoaded: Int, lastVisibleItemPosition: Int) {
-        addDisposable(getCachedUserSingleUserCase.execute(lastIdUserLoaded).observeOn(scheduleProvider.io())
-                .subscribeOn(scheduleProvider.ui())
+        "loadUsersFromCache".log("ccc")
+        addDisposable(getCachedUserSingleUserCase.execute(lastIdUserLoaded)
+                .observeOn(scheduleProvider.ui())
+                .subscribeOn(scheduleProvider.io())
                 .subscribe({ users ->
+                    "actualizo".log("ccc")
                     since = users.last().id
-                    usersLiveData.postValue(Resource(ResourceState.SUCCESS, users, null))
-                    positionToScroll.postValue(lastVisibleItemPosition)
+                    usersLiveData.value = Resource(ResourceState.SUCCESS, users, null)
+                    positionToScroll.value = lastVisibleItemPosition
                 }) {
-                    usersLiveData.postValue(Resource(ResourceState.ERROR, null, it.message))
+                    usersLiveData.value = Resource(ResourceState.ERROR, null, it.message)
                 })
     }
 }

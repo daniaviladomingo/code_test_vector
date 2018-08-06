@@ -35,18 +35,18 @@ class MainActivity : BaseActivity() {
         setupRecycler()
         setupViewListener()
 
+        "onCreate".log("ccc")
+
         savedInstanceState?.run {
-            mainViewModule.restore(getInt(LAST_USER_ID_LOADED), getInt(LAST_USER_VISIBLE))
+            mainViewModule.restore(getInt(LAST_USER_ID_LOADED), getInt(FIRST_USER_VISIBLE))
         } ?: mainViewModule.init()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         if (userList.isNotEmpty()) {
-            "Last user id loaded: ${userList.last().id}".log("ccc")
-            "Last user visible: ${(user_list.layoutManager as LinearLayoutManager).findLastVisibleItemPosition()}".log("ccc")
             outState.putInt(LAST_USER_ID_LOADED, userList.last().id)
-            outState.putInt(LAST_USER_VISIBLE, (user_list.layoutManager as LinearLayoutManager).findLastVisibleItemPosition())
+            outState.putInt(FIRST_USER_VISIBLE, (user_list.layoutManager as LinearLayoutManager).findFirstCompletelyVisibleItemPosition())
         }
     }
 
@@ -91,7 +91,11 @@ class MainActivity : BaseActivity() {
             }
             ResourceState.SUCCESS -> {
                 dismissProgress()
+                var ids = ""
+                data?.forEach { ids += "${it.id}," }
+                "Data ids: $ids".log("ccc")
                 userList.addAll(data!!)
+                adapter.notifyDataSetChanged()
             }
             ResourceState.EMPTY -> {
                 dismissProgress()
@@ -106,6 +110,6 @@ class MainActivity : BaseActivity() {
 
     companion object {
         private const val LAST_USER_ID_LOADED: String = "last_user_id_loaded"
-        private const val LAST_USER_VISIBLE: String = "first_user_visible"
+        private const val FIRST_USER_VISIBLE: String = "first_user_visible"
     }
 }
