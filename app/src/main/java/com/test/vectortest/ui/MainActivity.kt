@@ -29,7 +29,7 @@ class MainActivity : BaseActivity(), MainContract.IView {
         setupScrollListener()
 
         savedInstanceState?.run {
-            presenter.restore(getInt(LAST_USER_ID_LOADED), getInt(LAST_USER_VISIBLE))
+            presenter.restore(getInt(LAST_USER_ID_LOADED), getInt(FIRST_USER_VISIBLE))
         } ?: presenter.init()
     }
 
@@ -37,7 +37,7 @@ class MainActivity : BaseActivity(), MainContract.IView {
         super.onSaveInstanceState(outState)
         if (userList.isNotEmpty()) {
             outState.putInt(LAST_USER_ID_LOADED, userList.last().id)
-            outState.putInt(LAST_USER_VISIBLE, (user_list.layoutManager as LinearLayoutManager).findLastVisibleItemPosition())
+            outState.putInt(FIRST_USER_VISIBLE, (user_list.layoutManager as LinearLayoutManager).findFirstCompletelyVisibleItemPosition())
         }
     }
 
@@ -81,6 +81,6 @@ class MainActivity : BaseActivity(), MainContract.IView {
 
     companion object {
         private const val LAST_USER_ID_LOADED: String = "last_user_id_loaded"
-        private const val LAST_USER_VISIBLE: String = "first_user_visible"
+        private const val FIRST_USER_VISIBLE: String = "first_user_visible"
     }
 }
