@@ -2,7 +2,6 @@ package com.test.vectortest.di.activity
 
 import android.content.Context
 import com.test.vectortest.di.activity.module.ActivityModule
-import com.test.vectortest.di.activity.module.ProgressModule
 import com.test.vectortest.di.activity.module.ViewModelFactoryModule
 import com.test.vectortest.di.application.ApplicationComponent
 import com.test.vectortest.ui.MainActivity
@@ -13,7 +12,6 @@ import dagger.Component
         dependencies = [ApplicationComponent::class],
         modules = [
             ActivityModule::class,
-            ProgressModule::class,
             ViewModelFactoryModule::class])
 
 interface ActivityComponent {

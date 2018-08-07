@@ -6,7 +6,6 @@ import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.widget.Toast
 import com.test.domain.model.User
 import com.test.vectortest.R
 import com.test.vectortest.base.BaseActivity
@@ -28,7 +27,6 @@ class MainActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
 
         mainViewModule = ViewModelProviders.of(this, viewModelFactory).get(MainViewModel::class.java)
 
@@ -39,7 +37,7 @@ class MainActivity : BaseActivity() {
 
         savedInstanceState?.run {
             mainViewModule.restore(getInt(LAST_USER_ID_LOADED), getInt(FIRST_USER_VISIBLE))
-        } ?: mainViewModule.init()
+        } ?: mainViewModule.loadUsers()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -85,27 +83,22 @@ class MainActivity : BaseActivity() {
     }
 
     private fun handleDataState(resourceState: ResourceState, data: List<User>?, message: String?) {
-        when (resourceState) {
-            ResourceState.LOADING -> {
-                showProgress(getString(R.string.loading_message))
-            }
-            ResourceState.SUCCESS -> {
-                dismissProgress()
-                var ids = ""
-                data?.forEach { ids += "${it.id}," }
-                "Data ids: $ids".log("ccc")
-                userList.addAll(data!!)
-                adapter.notifyDataSetChanged()
-            }
-            ResourceState.EMPTY -> {
-                dismissProgress()
-                Toast.makeText(this, "empty", Toast.LENGTH_LONG).show()
-            }
-            ResourceState.ERROR -> {
-                dismissProgress()
-                Toast.makeText(this, message, Toast.LENGTH_LONG).show()
-            }
+        managementResourceState(resourceState, message)
+        if (resourceState == ResourceState.SUCCESS) {
+            var ids = ""
+            data?.forEach { ids += "${it.id}," }
+            "Data ids: $ids".log("ccc")
+            userList.addAll(data!!)
+            adapter.notifyDataSetChanged()
         }
+    }
+
+    override fun checkAgain() = {
+        mainViewModule.loadUsers()
+    }
+
+    override fun tryAgain() = {
+        mainViewModule.loadUsers()
     }
 
     companion object {

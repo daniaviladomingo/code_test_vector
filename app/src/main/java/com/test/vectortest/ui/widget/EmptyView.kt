@@ -1,4 +1,4 @@
-package com.test.vectortest.ui.widget.empty
+package com.test.vectortest.ui.widget
 
 import android.content.Context
 import android.util.AttributeSet
@@ -9,7 +9,7 @@ import kotlinx.android.synthetic.main.view_empty.view.*
 
 class EmptyView : RelativeLayout {
 
-    var emptyListener: EmptyListener? = null
+    var emptyListener: (() -> Unit)? = null
 
     constructor(context: Context) : super(context) {
         init()
@@ -25,7 +25,6 @@ class EmptyView : RelativeLayout {
 
     private fun init() {
         LayoutInflater.from(context).inflate(R.layout.view_empty, this)
-        button_check_again.setOnClickListener { emptyListener?.onCheckAgainClicked() }
+        button_check_again.setOnClickListener { emptyListener?.invoke() }
     }
-
 }

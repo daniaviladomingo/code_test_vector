@@ -1,4 +1,4 @@
-package com.test.vectortest.ui.widget.error
+package com.test.vectortest.ui.widget
 
 import android.content.Context
 import android.util.AttributeSet
@@ -9,7 +9,7 @@ import kotlinx.android.synthetic.main.view_error.view.*
 
 class ErrorView : RelativeLayout {
 
-    var errorListener: ErrorListener? = null
+    var errorListener: (() -> Unit)? = null
 
     constructor(context: Context) : super(context) {
         init()
@@ -26,7 +26,7 @@ class ErrorView : RelativeLayout {
 
     private fun init() {
         LayoutInflater.from(context).inflate(R.layout.view_error, this)
-        button_try_again.setOnClickListener { errorListener?.onTryAgainClicked() }
+        button_try_again.setOnClickListener { errorListener?.invoke() }
     }
 
 }
