@@ -19,7 +19,6 @@ class MainViewModel(private val getUsersSingleUseCase: GetUsersSingleUseCase,
     var usersLiveData = MutableLiveData<Resource<List<User>>>()
     var positionToScroll = MutableLiveData<Int>()
 
-
     fun restore(lastIdUserLoaded: Int, lastVisibleItemPosition: Int) {
         loadUsersFromCache(lastIdUserLoaded, lastVisibleItemPosition)
     }
@@ -57,6 +56,7 @@ class MainViewModel(private val getUsersSingleUseCase: GetUsersSingleUseCase,
 
     private fun loadUsersFromCache(lastIdUserLoaded: Int, lastVisibleItemPosition: Int) {
         "loadUsersFromCache".log("ccc")
+        usersLiveData.value = Resource.loading()
         addDisposable(getCachedUserSingleUserCase.execute(lastIdUserLoaded)
                 .observeOn(scheduleProvider.ui())
                 .subscribeOn(scheduleProvider.io())
