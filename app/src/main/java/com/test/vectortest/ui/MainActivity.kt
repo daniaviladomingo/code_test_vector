@@ -51,19 +51,11 @@ class MainActivity : BaseActivity(), MainContract.IView {
 
     override fun addUsers(users: List<User>) {
         userList.addAll(users)
-        runOnUiThread {
-            adapter.notifyDataSetChanged()
-        }
+        adapter.notifyDataSetChanged()
     }
 
     override fun scrollListToItem(scrollToItem: Int) {
-        runOnUiThread {
-            user_list.scrollToPosition(scrollToItem)
-        }
-    }
-
-    override fun showProgressLoading() {
-        showProgress(getString(R.string.loading_message))
+        user_list.scrollToPosition(scrollToItem)
     }
 
     private fun setupScrollListener() {
@@ -77,6 +69,14 @@ class MainActivity : BaseActivity(), MainContract.IView {
                 }
             })
         }
+    }
+
+    override fun checkAgain(): () -> Unit {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun tryAgain(): () -> Unit {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     companion object {

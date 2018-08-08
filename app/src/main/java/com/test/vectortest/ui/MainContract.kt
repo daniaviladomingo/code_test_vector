@@ -6,7 +6,6 @@ import com.test.vectortest.base.ScopePresenter
 
 interface MainContract {
     interface IView : BaseView {
-        fun showProgressLoading()
         fun addUsers(users: List<User>)
         fun scrollListToItem(scrollToItem: Int)
     }
