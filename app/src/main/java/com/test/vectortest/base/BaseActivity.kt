@@ -14,7 +14,7 @@ import com.test.vectortest.ui.data.ResourceState
 import kotlinx.android.synthetic.main.activity_base.*
 import kotlinx.android.synthetic.main.view_error.*
 
-abstract class BaseActivity : DaggerActivity() {
+abstract class BaseActivity : DaggerActivity(), BaseView {
 
     var toolbar: Toolbar? =  null
     private lateinit var view: View
@@ -48,7 +48,7 @@ abstract class BaseActivity : DaggerActivity() {
 
     abstract fun getLayoutId(): Int
 
-    protected fun managementResourceState(resourceState: ResourceState, message: String?) {
+    override fun managementResourceState(resourceState: ResourceState, message: String?) {
         when (resourceState) {
             ResourceState.LOADING -> {
                 view.visibility = VISIBLE

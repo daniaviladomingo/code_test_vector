@@ -22,7 +22,6 @@ class MainActivity : BaseActivity(), MainContract.IView {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
 
         user_list.adapter = adapter
 
@@ -30,7 +29,7 @@ class MainActivity : BaseActivity(), MainContract.IView {
 
         savedInstanceState?.run {
             presenter.restore(getInt(LAST_USER_ID_LOADED), getInt(FIRST_USER_VISIBLE))
-        } ?: presenter.init()
+        } ?: presenter.loadUsers()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -71,13 +70,9 @@ class MainActivity : BaseActivity(), MainContract.IView {
         }
     }
 
-    override fun checkAgain(): () -> Unit {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+    override fun checkAgain(): () -> Unit = { presenter.loadUsers() }
 
-    override fun tryAgain(): () -> Unit {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+    override fun tryAgain(): () -> Unit = { presenter.loadUsers() }
 
     companion object {
         private const val LAST_USER_ID_LOADED: String = "last_user_id_loaded"

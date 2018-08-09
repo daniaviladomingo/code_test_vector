@@ -3,6 +3,7 @@ package com.test.vectortest.ui
 import com.test.domain.interactors.GetCachedUserSingleUserCase
 import com.test.domain.interactors.GetUsersSingleUseCase
 import com.test.vectortest.base.BasePresenter
+import com.test.vectortest.ui.data.ResourceState
 import com.test.vectortest.utils.schedulers.IScheduleProvider
 
 class MainPresenter(private val getUsersSingleUseCase: GetUsersSingleUseCase,
@@ -13,7 +14,7 @@ class MainPresenter(private val getUsersSingleUseCase: GetUsersSingleUseCase,
     private var isRequestInProgress = false
     private var since = 0
 
-    override fun init() {
+    override fun loadUsers() {
         loadMoreUser()
     }
 
@@ -30,28 +31,40 @@ class MainPresenter(private val getUsersSingleUseCase: GetUsersSingleUseCase,
     }
 
     private fun loadUsersFromCache(lastIdUserLoaded: Int, lastVisibleItemPosition: Int) {
+        view.managementResourceState(ResourceState.LOADING)
         addDisposable(getCachedUserSingleUserCase.execute(lastIdUserLoaded)
                 .observeOn(scheduleProvider.ui())
                 .subscribeOn(scheduleProvider.io())
                 .subscribe({ users ->
-                    since = users.last().id
-                    view.addUsers(users)
-                    view.scrollListToItem(lastVisibleItemPosition)
-                }) {})
+                    if (users.isNotEmpty()) {
+                        view.managementResourceState(ResourceState.SUCCESS)
+                        since = users.last().id
+                        view.addUsers(users)
+                        view.scrollListToItem(lastVisibleItemPosition)
+                    } else {
+                        view.managementResourceState(ResourceState.EMPTY)
+                    }
+                }) {
+                    view.managementResourceState(ResourceState.ERROR, it.localizedMessage)
+                })
     }
 
     private fun loadMoreUser() {
-//        view.showProgressLoading()
+        view.managementResourceState(ResourceState.LOADING)
         addDisposable(getUsersSingleUseCase.execute(since)
                 .observeOn(scheduleProvider.ui())
                 .subscribeOn(scheduleProvider.io())
                 .subscribe({ users ->
-//                    view.dismissProgress()
                     isRequestInProgress = false
-                    since = users.last().id
-                    view.addUsers(users)
+                    if (users.isNotEmpty()) {
+                        view.managementResourceState(ResourceState.SUCCESS)
+                        since = users.last().id
+                        view.addUsers(users)
+                    } else {
+                        view.managementResourceState(ResourceState.EMPTY)
+                    }
                 }) {
-//                    view.dismissProgress()
+                    view.managementResourceState(ResourceState.ERROR, it.localizedMessage)
                     isRequestInProgress = false
                 })
     }
