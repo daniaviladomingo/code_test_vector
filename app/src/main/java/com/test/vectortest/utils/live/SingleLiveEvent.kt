@@ -1,4 +1,4 @@
-package com.test.vectortest.ui
+package com.test.vectortest.utils.live
 
 import android.arch.lifecycle.LifecycleOwner
 import android.arch.lifecycle.MutableLiveData

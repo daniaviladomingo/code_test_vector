@@ -12,7 +12,6 @@ import com.test.vectortest.base.BaseActivity
 import com.test.vectortest.di.activity.ActivityComponent
 import com.test.vectortest.ui.adapter.UserAdapter
 import com.test.vectortest.ui.data.ResourceState
-import com.test.vectortest.utils.log
 import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
 
@@ -32,8 +31,6 @@ class MainActivity : BaseActivity() {
 
         setupRecycler()
         setupViewListener()
-
-        "onCreate".log("ccc")
 
         savedInstanceState?.run {
             mainViewModule.restore(getInt(LAST_USER_ID_LOADED), getInt(FIRST_USER_VISIBLE))
@@ -85,9 +82,6 @@ class MainActivity : BaseActivity() {
     private fun handleDataState(resourceState: ResourceState, data: List<User>?, message: String?) {
         managementResourceState(resourceState, message)
         if (resourceState == ResourceState.SUCCESS) {
-            var ids = ""
-            data?.forEach { ids += "${it.id}," }
-            "Data ids: $ids".log("ccc")
             userList.addAll(data!!)
             adapter.notifyDataSetChanged()
         }
