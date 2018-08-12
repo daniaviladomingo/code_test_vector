@@ -1,4 +1,4 @@
-package com.test.vectortest.ui
+package com.test.vectortest.ui.main
 
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
@@ -8,7 +8,7 @@ import com.test.vectortest.R
 import com.test.vectortest.base.BaseActivity
 import com.test.vectortest.base.ScopePresenter
 import com.test.vectortest.di.activity.ActivityComponent
-import com.test.vectortest.ui.adapter.UserAdapter
+import com.test.vectortest.ui.main.adapter.UserAdapter
 import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
 

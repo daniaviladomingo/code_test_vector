@@ -1,4 +1,4 @@
-package com.test.vectortest.ui
+package com.test.vectortest.ui.main
 
 import com.test.domain.interactors.GetCachedUserSingleUserCase
 import com.test.domain.interactors.GetUsersSingleUseCase

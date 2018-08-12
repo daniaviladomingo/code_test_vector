@@ -1,4 +1,4 @@
-package com.test.vectortest.ui.adapter
+package com.test.vectortest.ui.main.adapter
 
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater

@@ -3,7 +3,7 @@ package com.test.vectortest.di.activity
 import android.content.Context
 import com.test.vectortest.di.activity.module.ActivityModule
 import com.test.vectortest.di.application.ApplicationComponent
-import com.test.vectortest.ui.MainActivity
+import com.test.vectortest.ui.main.MainActivity
 import dagger.Component
 
 @ActivityScope
