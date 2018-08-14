@@ -1,13 +1,13 @@
 package com.test.vectortest.ui.main
 
-import com.test.domain.interactors.GetCachedUserSingleUserCase
+import com.test.domain.interactors.GetCachedUsersSingleUseCase
 import com.test.domain.interactors.GetUsersSingleUseCase
 import com.test.vectortest.base.BasePresenter
-import com.test.vectortest.ui.data.ResourceState
+import com.test.vectortest.ui.utils.data.ResourceState
 import com.test.vectortest.utils.schedulers.IScheduleProvider
 
 class MainPresenter(private val getUsersSingleUseCase: GetUsersSingleUseCase,
-                    private val getCachedUserSingleUserCase: GetCachedUserSingleUserCase,
+                    private val getCachedUserSingleUserCase: GetCachedUsersSingleUseCase,
                     private val scheduleProvider: IScheduleProvider,
                     view: MainContract.IView) : BasePresenter<MainContract.IView>(view), MainContract.IPresenter {
 

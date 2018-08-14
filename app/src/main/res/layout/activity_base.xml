@@ -10,13 +10,13 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center" />
 
-    <com.test.vectortest.ui.widget.EmptyView
+    <com.test.vectortest.ui.utils.widget.EmptyView
         android:id="@+id/view_empty"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="gone" />
 
-    <com.test.vectortest.ui.widget.ErrorView
+    <com.test.vectortest.ui.utils.widget.ErrorView
         android:id="@+id/view_error"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

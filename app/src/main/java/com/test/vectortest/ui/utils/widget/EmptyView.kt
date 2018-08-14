@@ -1,4 +1,4 @@
-package com.test.vectortest.ui.widget
+package com.test.vectortest.ui.utils.widget
 
 import android.content.Context
 import android.util.AttributeSet

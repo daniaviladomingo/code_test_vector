@@ -1,7 +1,7 @@
 package com.test.vectortest.di.activity.module
 
 import android.content.Context
-import com.test.domain.interactors.GetCachedUserSingleUserCase
+import com.test.domain.interactors.GetCachedUsersSingleUseCase
 import com.test.domain.interactors.GetUsersSingleUseCase
 import com.test.vectortest.ui.main.MainActivity
 import com.test.vectortest.di.activity.DaggerActivity
@@ -23,6 +23,6 @@ class ActivityModule(private val daggerActivity: DaggerActivity) {
 
     @Provides
     @ActivityScope
-    fun provideMainPresenter(getUsersSingleUseCase: GetUsersSingleUseCase, getCachedUserSingleUserCase: GetCachedUserSingleUserCase, scheduleProvider: IScheduleProvider) : MainContract.IPresenter =
+    fun provideMainPresenter(getUsersSingleUseCase: GetUsersSingleUseCase, getCachedUserSingleUserCase: GetCachedUsersSingleUseCase, scheduleProvider: IScheduleProvider) : MainContract.IPresenter =
             MainPresenter(getUsersSingleUseCase, getCachedUserSingleUserCase, scheduleProvider, daggerActivity as MainActivity)
 }

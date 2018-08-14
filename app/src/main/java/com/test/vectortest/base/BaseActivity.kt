@@ -10,7 +10,7 @@ import android.widget.FrameLayout
 import android.widget.LinearLayout
 import com.test.vectortest.R
 import com.test.vectortest.di.activity.DaggerActivity
-import com.test.vectortest.ui.data.ResourceState
+import com.test.vectortest.ui.utils.data.ResourceState
 import kotlinx.android.synthetic.main.activity_base.*
 import kotlinx.android.synthetic.main.view_error.*
 

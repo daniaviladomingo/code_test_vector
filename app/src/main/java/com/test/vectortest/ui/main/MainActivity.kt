@@ -23,8 +23,7 @@ class MainActivity : BaseActivity(), MainContract.IView {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        user_list.adapter = adapter
-
+        setupList()
         setupScrollListener()
 
         savedInstanceState?.run {
@@ -55,6 +54,10 @@ class MainActivity : BaseActivity(), MainContract.IView {
 
     override fun scrollListToItem(scrollToItem: Int) {
         user_list.scrollToPosition(scrollToItem)
+    }
+
+    private fun setupList() {
+        user_list.adapter = adapter
     }
 
     private fun setupScrollListener() {
