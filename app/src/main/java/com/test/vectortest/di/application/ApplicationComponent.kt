@@ -2,6 +2,7 @@ package com.test.vectortest.di.application
 
 import android.content.Context
 import com.test.domain.interactors.GetCachedUsersSingleUseCase
+import com.test.domain.interactors.GetUserExtraSingleUseCase
 import com.test.domain.interactors.GetUsersSingleUseCase
 import com.test.vectortest.AppApplication
 import com.test.vectortest.di.application.module.*
@@ -29,6 +30,8 @@ interface ApplicationComponent {
     fun provideGetUsersSingleUseCase(): GetUsersSingleUseCase
 
     fun provideGetUserCachedSingleUseCase(): GetCachedUsersSingleUseCase
+
+    fun provideGetUserExtraSingleUseCase(): GetUserExtraSingleUseCase
 
     companion object {
         fun init(appApplication: AppApplication): ApplicationComponent = DaggerApplicationComponent.builder()
