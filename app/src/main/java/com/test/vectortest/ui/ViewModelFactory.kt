@@ -1,7 +1,7 @@
 package com.test.vectortest.ui
 
-import android.arch.lifecycle.ViewModel
-import android.arch.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.test.domain.interactors.GetCachedUserSingleUserCase
 import com.test.domain.interactors.GetUsersSingleUseCase
 import com.test.vectortest.utils.schedulers.IScheduleProvider

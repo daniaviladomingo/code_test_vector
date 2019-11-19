@@ -1,6 +1,6 @@
 package com.test.vectortest.ui
 
-import android.arch.lifecycle.MutableLiveData
+import androidx.lifecycle.MutableLiveData
 import com.test.domain.interactors.GetCachedUserSingleUserCase
 import com.test.domain.interactors.GetUsersSingleUseCase
 import com.test.domain.model.User

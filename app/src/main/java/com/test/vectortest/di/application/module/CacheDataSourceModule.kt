@@ -1,7 +1,7 @@
 package com.test.vectortest.di.application.module
 
-import android.arch.persistence.room.Room
-import android.arch.persistence.room.RoomDatabase
+import androidx.room.Room
+import androidx.room.RoomDatabase
 import android.content.Context
 import com.test.data.cache.CacheDataSourceImp
 import com.test.data.cache.ICacheDataSource

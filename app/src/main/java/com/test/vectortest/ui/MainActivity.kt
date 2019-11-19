@@ -1,11 +1,11 @@
 package com.test.vectortest.ui
 
-import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModelProvider
-import android.arch.lifecycle.ViewModelProviders
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.test.domain.model.User
 import com.test.vectortest.R
 import com.test.vectortest.base.BaseActivity
@@ -55,7 +55,7 @@ class MainActivity : BaseActivity() {
         user_list.adapter = adapter
         user_list.run {
             addOnScrollListener(object : RecyclerView.OnScrollListener() {
-                override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
+                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                     super.onScrolled(recyclerView, dx, dy)
                     (layoutManager as LinearLayoutManager).run {
                         mainViewModule.listScrolled(childCount, findFirstVisibleItemPosition(), itemCount)

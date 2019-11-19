@@ -1,6 +1,6 @@
 package com.test.vectortest.di.activity.module
 
-import android.arch.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProvider
 import com.test.domain.interactors.GetCachedUserSingleUserCase
 import com.test.domain.interactors.GetUsersSingleUseCase
 import com.test.vectortest.di.activity.ActivityScope
