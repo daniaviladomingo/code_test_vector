@@ -1,7 +1,7 @@
 package com.test.data.cache.definition
 
-import android.arch.persistence.room.Database
-import android.arch.persistence.room.RoomDatabase
+import androidx.room.Database
+import androidx.room.RoomDatabase
 import com.test.data.cache.dao.UserDao
 import com.test.data.cache.definition.AppDatabase.Companion.DATABASE_VERSION
 import com.test.data.cache.model.UserDb

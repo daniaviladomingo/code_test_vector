@@ -1,9 +1,9 @@
 package com.test.data.cache.model
 
-import android.arch.persistence.room.ColumnInfo
-import android.arch.persistence.room.Entity
-import android.arch.persistence.room.Index
-import android.arch.persistence.room.PrimaryKey
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.Index
+import androidx.room.PrimaryKey
 import com.test.data.cache.model.UserDb.Companion.TABLE_NAME
 
 @Entity(tableName = TABLE_NAME,

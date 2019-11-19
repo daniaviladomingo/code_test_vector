@@ -1,8 +1,8 @@
 package com.test.vectortest.ui.main
 
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.test.domain.model.User
 import com.test.vectortest.R
 import com.test.vectortest.base.BaseActivity
@@ -26,18 +26,19 @@ class MainActivity : BaseActivity(), MainContract.IView {
         setupList()
         setupScrollListener()
 
-        savedInstanceState?.run {
-            presenter.restore(getInt(LAST_USER_ID_LOADED), getInt(FIRST_USER_VISIBLE))
-        } ?: presenter.loadUsers()
+//        savedInstanceState?.run {
+//            presenter.restore(getInt(LAST_USER_ID_LOADED), getInt(FIRST_USER_VISIBLE))
+//        } ?: presenter.loadUsers()
+        presenter.loadUsers()
     }
 
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        if (userList.isNotEmpty()) {
-            outState.putInt(LAST_USER_ID_LOADED, userList.last().id)
-            outState.putInt(FIRST_USER_VISIBLE, (user_list.layoutManager as LinearLayoutManager).findFirstCompletelyVisibleItemPosition())
-        }
-    }
+//    override fun onSaveInstanceState(outState: Bundle) {
+//        super.onSaveInstanceState(outState)
+//        if (userList.isNotEmpty()) {
+//            outState.putInt(LAST_USER_ID_LOADED, userList.last().id)
+//            outState.putInt(FIRST_USER_VISIBLE, (user_list.layoutManager as LinearLayoutManager).findFirstCompletelyVisibleItemPosition())
+//        }
+//    }
 
     override fun getScopePresenter(): ScopePresenter = presenter
 
@@ -63,7 +64,7 @@ class MainActivity : BaseActivity(), MainContract.IView {
     private fun setupScrollListener() {
         user_list.run {
             addOnScrollListener(object : RecyclerView.OnScrollListener() {
-                override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
+                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                     super.onScrolled(recyclerView, dx, dy)
                     (layoutManager as LinearLayoutManager).run {
                         presenter.listScrolled(childCount, findFirstVisibleItemPosition(), itemCount)
